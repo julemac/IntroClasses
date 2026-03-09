@@ -4,9 +4,10 @@ public class Program
 {
     public static void Main()
     {
+        bool isPlaying = true;
         Player hero = new Player();
         hero.Display();
-        while (true)
+        while (isPlaying)
         {
             ConsoleKeyInfo input = Console.ReadKey(true);
             switch (input.Key)
@@ -23,9 +24,14 @@ public class Program
                 case ConsoleKey.D:
                     hero.Move(1, 0);
                     break;
+                case ConsoleKey.Q:
+                    isPlaying = false;
+                    break;
             }
 
             hero.Display();
         }
+        
+        Console.WriteLine("Goodbye!");
     }
 }
