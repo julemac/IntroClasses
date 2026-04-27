@@ -10,12 +10,12 @@ public class Player
     {
         return _x;
     }
-    
+
     public int GetPositionY()
     {
         return _y;
     }
-    
+
     public void Display()
     {
         Console.SetCursorPosition(_x, _y);
@@ -24,8 +24,10 @@ public class Player
 
     public void Move(int diffX, int diffY)
     {
-        if (_x + diffX < Console.WindowWidth && _x + diffX >= 0) _x += diffX;
-        if (_y + diffY < Console.WindowHeight && _y + diffY >= 0) _y += diffY;
+        int targetX = _x + diffX;
+        int targetY = _y + diffY;
+        if (targetX < Console.BufferWidth && targetX >= 0) _x =  targetX;
+        if (targetY < Console.BufferHeight && targetY >= 0) _y =  targetY;
     }
 
 
@@ -49,11 +51,12 @@ public class Player
             case ConsoleKey.D:
                 Move(1, 0);
                 break;
-            case ConsoleKey.Q: 
+            case ConsoleKey.Q:
                 // Display();
                 isPlaying = false;
                 break;
-        } 
+        }
+
         Display();
         return isPlaying;
     }
