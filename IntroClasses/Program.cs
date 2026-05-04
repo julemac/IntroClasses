@@ -5,13 +5,17 @@ public class Program
     public static void Main()
     {
         bool isPlaying = true;
+
         Player hero = new Player(3, 4);
-        Player hero2 = new Player(1, 2);
-        hero.Display();
+
+        List<Character> characters = new List<Character>();
+        characters.Add(hero);
+        characters.Add(new NPC(1, 2));
+
         while (isPlaying)
         {
-            isPlaying = hero.TakeTurn();
-            isPlaying = hero2.TakeTurn();
+            foreach (Character character in characters)
+                isPlaying = character.TakeTurn();
         }
 
         Console.WriteLine("Goodbye!");
