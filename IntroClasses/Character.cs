@@ -25,5 +25,10 @@ public abstract class Character
         if (targetY < Console.BufferHeight && targetY >= 0) Position.Y = targetY;
     }
 
+    public void Move(Vector2D diff)
+    {
+        Move(diff.X, diff.Y);
+    }
+
     public abstract bool TakeTurn();
 }
