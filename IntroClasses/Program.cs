@@ -4,6 +4,7 @@ public class Program
 {
     public static void Main()
     {
+        
         Dictionary<ConsoleKey, Vector2D> keyToDirection;
         keyToDirection = new Dictionary<ConsoleKey, Vector2D>();
         keyToDirection[ConsoleKey.A] = new Vector2D(-1, 0);
@@ -18,6 +19,13 @@ public class Program
         List<Character> characters = [];
         characters.Add(new NPC(1, 2));
         characters.Add(hero);
+
+        // Map map = new Map();
+        // foreach (var character in characters)
+        // {
+        //     map.placeOccupant(character);
+        // }
+        // map.showMap();
 
         while (isPlaying)
         {

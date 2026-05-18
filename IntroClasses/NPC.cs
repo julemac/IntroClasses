@@ -2,7 +2,7 @@ namespace IntroClasses;
 
 public class NPC : Character
 {
-    private Random random = new Random(1234);
+    //private Random random = new Random(1234);
 
     private List<Vector2D> availableDirections =
     [
@@ -14,7 +14,7 @@ public class NPC : Character
 
     public NPC(int x, int y) : base(x, y, "?")
     {
-        Display();
+       Display();
     }
 
     public override bool TakeTurn()
@@ -23,8 +23,8 @@ public class NPC : Character
         Console.Write(" ");
 
 
-        //int index = Random.Shared.Next(0, availableDirections.Count);
-        int index = random.Next(0, availableDirections.Count);
+        int index = Random.Shared.Next(0, availableDirections.Count);
+        //int index = random.Next(0, availableDirections.Count);
         Move(availableDirections[index]);
         Display();
         return true;

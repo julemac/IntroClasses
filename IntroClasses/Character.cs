@@ -31,4 +31,8 @@ public abstract class Character
     }
 
     public abstract bool TakeTurn();
+    
+    public Vector2D GetPosition(){
+        return Position;
+    }
 }
