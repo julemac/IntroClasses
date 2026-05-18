@@ -21,31 +21,53 @@ public class Map
         }
     }
 
-    // public void showMap()
+    public void Display()
+    {
+        Console.SetCursorPosition(0, 0);
+        foreach (Tile[] tileLine in _tiles)
+        {
+            foreach (Tile tile in tileLine)
+                tile.Display();
+            
+            Console.WriteLine();
+        }
+    }
+    
+    public char GetTileRepresentation(int column, int row)
+    {
+        if (!(row >= 0 && row < _tiles.Length && column >= 0 && column < _tiles[row].Length)) return ' ';
+        
+        return _tiles[row][column].GetRepresentation();
+    }
+
+    // public bool CanOccupy(int x, int y)
     // {
-    //     foreach (Tile[] tileLine in _tiles)
-    //     {
-    //         foreach (Tile tile in tileLine)
-    //             tile.Display();
-    //         
-    //         Console.WriteLine();
-    //     }
+    //     return y >= 0 && y < _tiles.Length && x >= 0 && x < _tiles[y].Length && !_tiles[y][x].IsOccupied();
     // }
     //
-    // public void placeOccupant(Character occupant, int x, int y){
-    //     if (y >= 0 && y < _tiles.Length && x >= 0 && x < _tiles[y].Length && !_tiles[y][x].IsOccupied())
+    // public bool CanOccupy(Vector2D start, Vector2D direction)
+    // {
+    //     var goal = start + direction;
+    //     return CanOccupy(goal.X, goal.Y);
+    // }
+    //
+    //
+    // public bool placeOccupant(Character occupant, int x, int y){
+    //     if (CanOccupy(x,y))
     //     {
     //         _tiles[y][x].Occupy(occupant);
+    //         return true;
     //     }
+    //     return false;
     // }
     //
-    // public void placeOccupant(Character occupant, Vector2D position)
+    // public bool placeOccupant(Character occupant, Vector2D position)
     // {
-    //     placeOccupant(occupant, position.X, position.Y);
+    //     return placeOccupant(occupant, position.X, position.Y);
     // }
     //
-    // public void placeOccupant(Character occupant)
+    // public bool placeOccupant(Character occupant)
     // {
-    //     placeOccupant(occupant,occupant.GetPosition());
+    //     return placeOccupant(occupant,occupant.GetPosition());
     // }
 }

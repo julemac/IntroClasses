@@ -17,22 +17,32 @@ public abstract class Character
         Console.Write(_avatar);
     }
 
-    public void Move(int diffX, int diffY)
+    public void fixBehind(Map map)
     {
+        Console.SetCursorPosition(Position.X, Position.Y);
+        Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
+    }
+
+    public void Move(int diffX, int diffY, Map map)
+    {
+        // if (map.CanOccupy(diffX, diffY))
+        // {
+        // }
         int targetX = Position.X + diffX;
         int targetY = Position.Y + diffY;
         if (targetX < Console.BufferWidth && targetX >= 0) Position.X = targetX;
         if (targetY < Console.BufferHeight && targetY >= 0) Position.Y = targetY;
     }
 
-    public void Move(Vector2D diff)
+    public void Move(Vector2D diff, Map map)
     {
-        Move(diff.X, diff.Y);
+        Move(diff.X, diff.Y, map);
     }
 
-    public abstract bool TakeTurn();
-    
-    public Vector2D GetPosition(){
+    public abstract bool TakeTurn(Map map);
+
+    public Vector2D GetPosition()
+    {
         return Position;
     }
 }

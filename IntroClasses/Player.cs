@@ -10,15 +10,15 @@ public class Player : Character
         _keyToDirection = dict;
     }
 
-    public override bool TakeTurn()
+    public override bool TakeTurn(Map map)
     {
         bool isPlaying = true;
         ConsoleKeyInfo input = Console.ReadKey(true);
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.Write(" ");
+        
+        fixBehind(map);
 
         if (_keyToDirection.ContainsKey(input.Key))
-            Move(_keyToDirection[input.Key]);
+            Move(_keyToDirection[input.Key],map);
 
         switch (input.Key)
         {

@@ -17,15 +17,14 @@ public class NPC : Character
        Display();
     }
 
-    public override bool TakeTurn()
+    public override bool TakeTurn(Map map)
     {
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.Write(" ");
+        fixBehind(map);
 
 
         int index = Random.Shared.Next(0, availableDirections.Count);
         //int index = random.Next(0, availableDirections.Count);
-        Move(availableDirections[index]);
+        Move(availableDirections[index], map);
         Display();
         return true;
     }

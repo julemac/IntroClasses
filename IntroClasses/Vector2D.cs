@@ -10,4 +10,9 @@ public struct Vector2D
         X = x;
         Y = y;
     }
+
+    public static Vector2D operator +(Vector2D a, Vector2D b)
+    {
+        return new Vector2D(a.X + b.X, a.Y + b.Y);
+    }
 }

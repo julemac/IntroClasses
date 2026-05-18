@@ -14,23 +14,19 @@ public class Program
 
         bool isPlaying = true;
 
-        Player hero = new Player(3, 4, keyToDirection);
-
+        Map map = new Map();
+        
         List<Character> characters = [];
         characters.Add(new NPC(1, 2));
-        characters.Add(hero);
+        //characters.Add(new NPC(13, 8));
+        characters.Add(new Player(3, 4, keyToDirection));
 
-        // Map map = new Map();
-        // foreach (var character in characters)
-        // {
-        //     map.placeOccupant(character);
-        // }
-        // map.showMap();
+        map.Display();
 
         while (isPlaying)
         {
             foreach (Character character in characters)
-                isPlaying = character.TakeTurn();
+                isPlaying = character.TakeTurn(map);
         }
 
         Console.WriteLine("Goodbye!");
