@@ -28,46 +28,61 @@ public class Map
         {
             foreach (Tile tile in tileLine)
                 tile.Display();
-            
+
             Console.WriteLine();
         }
     }
-    
+
     public char GetTileRepresentation(int column, int row)
     {
         if (!(row >= 0 && row < _tiles.Length && column >= 0 && column < _tiles[row].Length)) return ' ';
-        
+
         return _tiles[row][column].GetRepresentation();
     }
 
-    // public bool CanOccupy(int x, int y)
-    // {
-    //     return y >= 0 && y < _tiles.Length && x >= 0 && x < _tiles[y].Length && !_tiles[y][x].IsOccupied();
-    // }
-    //
-    // public bool CanOccupy(Vector2D start, Vector2D direction)
-    // {
-    //     var goal = start + direction;
-    //     return CanOccupy(goal.X, goal.Y);
-    // }
-    //
-    //
-    // public bool placeOccupant(Character occupant, int x, int y){
-    //     if (CanOccupy(x,y))
-    //     {
-    //         _tiles[y][x].Occupy(occupant);
-    //         return true;
-    //     }
-    //     return false;
-    // }
-    //
-    // public bool placeOccupant(Character occupant, Vector2D position)
-    // {
-    //     return placeOccupant(occupant, position.X, position.Y);
-    // }
-    //
-    // public bool placeOccupant(Character occupant)
-    // {
-    //     return placeOccupant(occupant,occupant.GetPosition());
-    // }
+    public bool IsInMap(int row, int column)
+    {
+        return column >= 0 && column < _tiles.Length && row >= 0 && row < _tiles[column].Length;
+    }
+
+    public bool CanOccupy(int row, int column)
+    {
+        return IsInMap(row, column) && _tiles[column][row].CanBeOccupied();
+    }
+
+    public bool CanOccupy(Vector2D start, Vector2D direction)
+    {
+        var goal = start + direction;
+        return CanOccupy(goal.X, goal.Y);
+    }
+
+    public bool PlaceOccupant(Character occupant, int x, int y)
+    {
+        if (CanOccupy(x, y))
+        {
+            _tiles[y][x].Occupy(occupant);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool PlaceOccupant(Character occupant, Vector2D position)
+    {
+        return PlaceOccupant(occupant, position.X, position.Y);
+    }
+
+    public bool PlaceOccupant(Character occupant)
+    {
+        return PlaceOccupant(occupant, occupant.GetPosition());
+    }
+
+    //use only
+    public void RemoveOccupant(int row, int column)
+    {
+        if (IsInMap(row, column) && _tiles[column][row].IsOccupied())
+        {
+            _tiles[column][row].Unoccupy();
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class NPC : Character
 
     public override bool TakeTurn(Map map)
     {
-        fixBehind(map);
+        FixBehind(map);
 
 
         int index = Random.Shared.Next(0, availableDirections.Count);

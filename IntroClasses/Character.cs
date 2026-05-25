@@ -17,21 +17,24 @@ public abstract class Character
         Console.Write(_avatar);
     }
 
-    public void fixBehind(Map map)
+    public void FixBehind(Map map)
     {
         Console.SetCursorPosition(Position.X, Position.Y);
         Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
     }
 
+    //Move by diffX (horizontal) and by diffY (vertical) on map
     public void Move(int diffX, int diffY, Map map)
     {
-        // if (map.CanOccupy(diffX, diffY))
-        // {
-        // }
         int targetX = Position.X + diffX;
         int targetY = Position.Y + diffY;
-        if (targetX < Console.BufferWidth && targetX >= 0) Position.X = targetX;
-        if (targetY < Console.BufferHeight && targetY >= 0) Position.Y = targetY;
+        if (map.CanOccupy(targetX, targetY))
+        {
+            map.RemoveOccupant(Position.X, Position.Y);
+            Position.X = targetX;
+            Position.Y = targetY;
+            map.PlaceOccupant(this);
+        }
     }
 
     public void Move(Vector2D diff, Map map)

@@ -15,7 +15,7 @@ public class Player : Character
         bool isPlaying = true;
         ConsoleKeyInfo input = Console.ReadKey(true);
         
-        fixBehind(map);
+        FixBehind(map);
 
         if (_keyToDirection.ContainsKey(input.Key))
             Move(_keyToDirection[input.Key],map);
@@ -23,7 +23,7 @@ public class Player : Character
         switch (input.Key)
         {
             case ConsoleKey.Q:
-                // Display();
+                Display();
                 isPlaying = false;
                 break;
         }
