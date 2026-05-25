@@ -35,6 +35,11 @@ public abstract class Character
             Position.Y = targetY;
             map.PlaceOccupant(this);
         }
+        else if (map.IsOccupied(targetX, targetY))
+        {
+            Character? npc = map.GetTileOccupant(targetX, targetY);
+            if (npc != null) Console.WriteLine("YOU CAME!");
+        }
     }
 
     public void Move(Vector2D diff, Map map)

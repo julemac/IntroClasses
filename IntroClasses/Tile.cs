@@ -49,4 +49,9 @@ public class Tile
     {
         return _occupied;
     }
+    
+    public Character? Occupant()
+    {
+        return _occupant;
+    }
 }

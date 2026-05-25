@@ -56,6 +56,16 @@ public class Map
         return CanOccupy(goal.X, goal.Y);
     }
 
+    public bool IsOccupied(int row, int column)
+    {
+        return IsInMap(row, column) && _tiles[column][row].IsOccupied();
+    }
+
+    public Character? GetTileOccupant(int row, int column)
+    {
+        return IsOccupied(row, column)? _tiles[column][row].Occupant() : null;
+    }
+
     public bool PlaceOccupant(Character occupant, int x, int y)
     {
         if (CanOccupy(x, y))
@@ -77,7 +87,6 @@ public class Map
         return PlaceOccupant(occupant, occupant.GetPosition());
     }
 
-    //use only
     public void RemoveOccupant(int row, int column)
     {
         if (IsInMap(row, column) && _tiles[column][row].IsOccupied())
