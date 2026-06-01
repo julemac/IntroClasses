@@ -4,6 +4,8 @@ public class Program
 {
     public static void Main()
     {
+        Console.Clear();
+        Console.CursorVisible = false;
         
         Dictionary<ConsoleKey, Vector2D> keyToDirection;
         keyToDirection = new Dictionary<ConsoleKey, Vector2D>();

@@ -1,6 +1,6 @@
 namespace IntroClasses;
 
-public class NPC : Character
+public class NPC : Character, Interactable
 {
     //private Random random = new Random(1234);
 
