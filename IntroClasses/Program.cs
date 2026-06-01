@@ -17,9 +17,9 @@ public class Program
         Map map = new Map();
         
         List<Character> characters = [];
-        characters.Add(new NPC(1, 2));
+        characters.Add(new NPC(1, 1, map));
         //characters.Add(new NPC(13, 8));
-        characters.Add(new Player(3, 4, keyToDirection));
+        characters.Add(new Player(6, 1, keyToDirection, map));
 
         map.Display();
 

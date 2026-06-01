@@ -12,7 +12,7 @@ public class NPC : Character
         new Vector2D(0, 1)
     ];
 
-    public NPC(int x, int y) : base(x, y, "?")
+    public NPC(int x, int y, Map map) : base(map, x, y, "?")
     {
        Display();
     }
@@ -21,11 +21,17 @@ public class NPC : Character
     {
         FixBehind(map);
 
-
         int index = Random.Shared.Next(0, availableDirections.Count);
         //int index = random.Next(0, availableDirections.Count);
         Move(availableDirections[index], map);
+
         Display();
+        
         return true;
+    }
+
+    public override void Interact()
+    {
+        Console.WriteLine("Hello there!");
     }
 }

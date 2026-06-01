@@ -63,7 +63,7 @@ public class Map
 
     public Character? GetTileOccupant(int row, int column)
     {
-        return IsOccupied(row, column)? _tiles[column][row].Occupant() : null;
+        return IsOccupied(row, column) ? _tiles[column][row].Occupant() : null;
     }
 
     public bool PlaceOccupant(Character occupant, int x, int y)
@@ -93,5 +93,12 @@ public class Map
         {
             _tiles[column][row].Unoccupy();
         }
+    }
+
+    public bool Interact(int row, int column)
+    {
+        if (!IsInMap(row, column)) return false;
+
+        return true;
     }
 }

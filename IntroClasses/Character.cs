@@ -5,10 +5,11 @@ public abstract class Character
     protected Vector2D Position;
     private string _avatar;
 
-    public Character(int x = 0, int y = 0, string avatar = "!")
+    public Character(Map map, int x = 0, int y = 0, string avatar = "!")
     {
         Position = new Vector2D(x, y);
         _avatar = avatar;
+        if(!map.PlaceOccupant(this)) Console.WriteLine("Could not add to map");
     }
 
     public void Display()
@@ -38,7 +39,7 @@ public abstract class Character
         else if (map.IsOccupied(targetX, targetY))
         {
             Character? npc = map.GetTileOccupant(targetX, targetY);
-            if (npc != null) Console.WriteLine("YOU CAME!");
+            if (npc != null) npc.Interact();
         }
     }
 
@@ -53,4 +54,6 @@ public abstract class Character
     {
         return Position;
     }
+
+    public abstract void Interact();
 }

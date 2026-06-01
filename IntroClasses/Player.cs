@@ -4,7 +4,7 @@ public class Player : Character
 {
     private readonly Dictionary<ConsoleKey, Vector2D> _keyToDirection;
 
-    public Player(int x, int y, Dictionary<ConsoleKey, Vector2D> dict) : base(x, y, "@")
+    public Player(int x, int y, Dictionary<ConsoleKey, Vector2D> dict, Map map) : base(map, x, y, "@")
     {
         Display();
         _keyToDirection = dict;
@@ -31,4 +31,6 @@ public class Player : Character
         Display();
         return isPlaying;
     }
+
+    public override void Interact() {}
 }
