@@ -9,7 +9,7 @@ public abstract class Character
     {
         Position = new Vector2D(x, y);
         _avatar = avatar;
-        if(!map.PlaceOccupant(this)) Console.WriteLine("Could not add to map");
+        if(!map.PlaceOnMap(this)) Console.WriteLine("Could not add to map");
     }
 
     public void Display()
@@ -18,10 +18,12 @@ public abstract class Character
         Console.Write(_avatar);
     }
 
-    public void FixBehind(Map map)
+    public void FixTileRep(Map map, int row, int column)
     {
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
+        Console.SetCursorPosition(row, column);
+        //Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
+        map.GetTileRepresentation(row, column);
+        
     }
 
     //Move by diffX (horizontal) and by diffY (vertical) on map
@@ -29,17 +31,20 @@ public abstract class Character
     {
         int targetX = Position.X + diffX;
         int targetY = Position.Y + diffY;
-        if (map.CanOccupy(targetX, targetY))
+
+        if (!map.IsInMap(targetX, targetY)) return;
+        Tile targetTile = map.GetTile(targetX, targetY);
+        
+        if(targetTile.CanBeOccupied())
         {
-            map.RemoveOccupant(Position.X, Position.Y);
+            map.GetTile(Position.X, Position.Y).RemoveOccupant();
             Position.X = targetX;
             Position.Y = targetY;
-            map.PlaceOccupant(this);
+            targetTile.PlaceOnTile(this);
         }
-        else if (map.IsOccupied(targetX, targetY))
+        else if (targetTile.IsOccupied())
         {
-            Character? npc = map.GetTileOccupant(targetX, targetY);
-            if (npc != null) npc.Interact();
+            if (targetTile.Occupant != null) targetTile.Occupant.Interact();
         }
     }
 

@@ -1,6 +1,6 @@
 namespace IntroClasses;
 
-public class NPC : Character, Interactable
+public class NPC : Character
 {
     //private Random random = new Random(1234);
 
@@ -19,12 +19,15 @@ public class NPC : Character, Interactable
 
     public override bool TakeTurn(Map map)
     {
-        FixBehind(map);
+        int prevX = Position.X, prevY = Position.Y;
+        
 
         int index = Random.Shared.Next(0, availableDirections.Count);
         //int index = random.Next(0, availableDirections.Count);
         Move(availableDirections[index], map);
 
+        FixTileRep(map,prevX, prevY);
+        
         Display();
         
         return true;

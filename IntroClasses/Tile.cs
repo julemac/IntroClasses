@@ -2,25 +2,27 @@ namespace IntroClasses;
 
 public class Tile
 {
-    private char _rep;
-    private Character? _occupant = null;
+    private readonly char _rep;
+    public Character? Occupant = null;
     private bool _occupied = false;
     private readonly bool _walkable = true;
+    public Item Item = null;
 
     public Tile(char rep)
     {
-        _rep = rep;
-        if (_rep == '#')
+        this._rep = rep;
+        if (this._rep == '#')
         {
             _walkable = false;
-            _rep = '▓';
+            this._rep = '▓';
         }
     }
 
     public void Display()
     {
-        if (!_occupied) Console.Write(_rep);
-        else _occupant?.Display();
+        if (_occupied) Occupant.Display();
+        else if (Item != null) Item.Display();
+        else Console.Write(_rep);
     }
 
     public char GetRepresentation()
@@ -33,25 +35,25 @@ public class Tile
         return !_occupied && _walkable;
     }
 
-    public void Occupy(Character occupant)
+    public void PlaceOnTile(Character occupant)
     {
         _occupied = true;
-        _occupant = occupant;
+        this.Occupant = occupant;
     }
 
-    public void Unoccupy()
+    public void PlaceOnTile(Item item)
+    {
+        this.Item = item;
+    }
+
+    public void RemoveOccupant()
     {
         _occupied = false;
-        _occupant = null;
+        Occupant = null;
     }
 
     public bool IsOccupied()
     {
         return _occupied;
-    }
-    
-    public Character? Occupant()
-    {
-        return _occupant;
     }
 }

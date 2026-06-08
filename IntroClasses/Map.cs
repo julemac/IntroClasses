@@ -33,11 +33,10 @@ public class Map
         }
     }
 
-    public char GetTileRepresentation(int column, int row)
+    public void GetTileRepresentation(int column, int row)
     {
-        if (!(row >= 0 && row < _tiles.Length && column >= 0 && column < _tiles[row].Length)) return ' ';
-
-        return _tiles[row][column].GetRepresentation();
+        if (!(row >= 0 && row < _tiles.Length && column >= 0 && column < _tiles[row].Length)) Console.Write(' ');
+        _tiles[row][column].Display();
     }
 
     public bool IsInMap(int row, int column)
@@ -45,15 +44,15 @@ public class Map
         return column >= 0 && column < _tiles.Length && row >= 0 && row < _tiles[column].Length;
     }
 
+    public Tile GetTile(int row, int column)
+    {
+        if (IsInMap(row, column)) return _tiles[column][row];
+        return null;
+    }
+
     public bool CanOccupy(int row, int column)
     {
         return IsInMap(row, column) && _tiles[column][row].CanBeOccupied();
-    }
-
-    public bool CanOccupy(Vector2D start, Vector2D direction)
-    {
-        var goal = start + direction;
-        return CanOccupy(goal.X, goal.Y);
     }
 
     public bool IsOccupied(int row, int column)
@@ -61,44 +60,29 @@ public class Map
         return IsInMap(row, column) && _tiles[column][row].IsOccupied();
     }
 
-    public Character? GetTileOccupant(int row, int column)
+    public bool PlaceOnMap(Character occupant)
     {
-        return IsOccupied(row, column) ? _tiles[column][row].Occupant() : null;
-    }
+        int row = occupant.GetPosition().X, column = occupant.GetPosition().Y;
 
-    public bool PlaceOccupant(Character occupant, int x, int y)
-    {
-        if (CanOccupy(x, y))
+        if (CanOccupy(row, column))
         {
-            _tiles[y][x].Occupy(occupant);
+            _tiles[column][row].PlaceOnTile(occupant);
             return true;
         }
 
         return false;
     }
 
-    public bool PlaceOccupant(Character occupant, Vector2D position)
+    public bool PlaceOnMap(Item item)
     {
-        return PlaceOccupant(occupant, position.X, position.Y);
-    }
+        int row = item.GetPosition().X, column = item.GetPosition().Y;
 
-    public bool PlaceOccupant(Character occupant)
-    {
-        return PlaceOccupant(occupant, occupant.GetPosition());
-    }
-
-    public void RemoveOccupant(int row, int column)
-    {
-        if (IsInMap(row, column) && _tiles[column][row].IsOccupied())
+        if (CanOccupy(row, column))
         {
-            _tiles[column][row].Unoccupy();
+            _tiles[column][row].PlaceOnTile(item);
+            return true;
         }
-    }
 
-    public bool Interact(int row, int column)
-    {
-        if (!IsInMap(row, column)) return false;
-
-        return true;
+        return false;
     }
 }

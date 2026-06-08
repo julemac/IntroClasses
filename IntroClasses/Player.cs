@@ -14,11 +14,11 @@ public class Player : Character
     {
         bool isPlaying = true;
         ConsoleKeyInfo input = Console.ReadKey(true);
-        
-        FixBehind(map);
+
+        int prevX = Position.X, prevY = Position.Y;
 
         if (_keyToDirection.ContainsKey(input.Key))
-            Move(_keyToDirection[input.Key],map);
+            Move(_keyToDirection[input.Key], map);
 
         switch (input.Key)
         {
@@ -28,9 +28,13 @@ public class Player : Character
                 break;
         }
 
+        FixTileRep(map, prevX, prevY);
+
         Display();
         return isPlaying;
     }
 
-    public override void Interact() {}
+    public override void Interact()
+    {
+    }
 }
