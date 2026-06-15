@@ -3,6 +3,7 @@ namespace IntroClasses;
 public class NPC : Character
 {
     //private Random random = new Random(1234);
+    private bool _onoff = true;
 
     private List<Vector2D> availableDirections =
     [
@@ -33,8 +34,18 @@ public class NPC : Character
         return true;
     }
 
-    public override void Interact()
+    public override void Interact(Map map)
     {
-        Console.WriteLine("Hello there!");
+        Console.SetCursorPosition(Position.X, Position.Y);
+        if (_onoff)
+        {
+            _avatar = "!";
+            _onoff = false;
+        }
+        else
+        {
+            _avatar = "?";
+            _onoff = true;
+        }
     }
 }

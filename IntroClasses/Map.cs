@@ -39,25 +39,25 @@ public class Map
         _tiles[row][column].Display();
     }
 
-    public bool IsInMap(int row, int column)
+    public bool IsInMap(int column, int row)
     {
-        return column >= 0 && column < _tiles.Length && row >= 0 && row < _tiles[column].Length;
+        return row >= 0 && row < _tiles.Length && column >= 0 && column < _tiles[row].Length;
     }
 
-    public Tile GetTile(int row, int column)
+    public Tile GetTile(int column, int row)
     {
-        if (IsInMap(row, column)) return _tiles[column][row];
+        if (IsInMap(column, row)) return _tiles[row][column];
         return null;
     }
 
-    public bool CanOccupy(int row, int column)
+    public bool CanOccupy(int column, int row)
     {
-        return IsInMap(row, column) && _tiles[column][row].CanBeOccupied();
+        return IsInMap(column, row) && _tiles[row][column].CanBeOccupied();
     }
 
-    public bool IsOccupied(int row, int column)
+    public bool IsOccupied(int column, int row)
     {
-        return IsInMap(row, column) && _tiles[column][row].IsOccupied();
+        return IsInMap(column, row) && _tiles[row][column].IsOccupied();
     }
 
     public bool PlaceOnMap(Character occupant)
@@ -75,11 +75,11 @@ public class Map
 
     public bool PlaceOnMap(Item item)
     {
-        int row = item.GetPosition().X, column = item.GetPosition().Y;
+        int column = item.GetPosition().X, row = item.GetPosition().Y;
 
-        if (CanOccupy(row, column))
+        if (CanOccupy(column, row))
         {
-            _tiles[column][row].PlaceOnTile(item);
+            _tiles[row][column].PlaceOnTile(item);
             return true;
         }
 

@@ -23,6 +23,8 @@ public class Program
         //characters.Add(new NPC(13, 8));
         characters.Add(new Player(6, 1, keyToDirection, map));
 
+        Item item = new Item(map, 4, 5, "#");
+
         map.Display();
 
         while (isPlaying)

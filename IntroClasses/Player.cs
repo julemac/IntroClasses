@@ -3,11 +3,13 @@ namespace IntroClasses;
 public class Player : Character
 {
     private readonly Dictionary<ConsoleKey, Vector2D> _keyToDirection;
+    private List<Item> _inventory;
 
     public Player(int x, int y, Dictionary<ConsoleKey, Vector2D> dict, Map map) : base(map, x, y, "@")
     {
         Display();
         _keyToDirection = dict;
+        _inventory = [];
     }
 
     public override bool TakeTurn(Map map)
@@ -22,6 +24,14 @@ public class Player : Character
 
         switch (input.Key)
         {
+            case ConsoleKey.E:
+                var tile = map.GetTile(Position.X, Position.Y);
+                if (tile.HasItem())
+                {
+                    tile.GetItem()!.Interact(map);
+                    _inventory.Add(tile.TakeItem()!);
+                }
+                break;
             case ConsoleKey.Q:
                 Display();
                 isPlaying = false;
@@ -34,7 +44,7 @@ public class Player : Character
         return isPlaying;
     }
 
-    public override void Interact()
+    public override void Interact(Map map)
     {
     }
 }

@@ -1,30 +1,30 @@
 namespace IntroClasses;
 
-public abstract class Character
+public abstract class Character : GameObject
 {
-    protected Vector2D Position;
-    private string _avatar;
+    // protected Vector2D Position;
+    // protected string _avatar;
 
-    public Character(Map map, int x = 0, int y = 0, string avatar = "!")
+    public Character(Map map, int x = 0, int y = 0, string avatar = "!") : base(map, x, y, avatar)
     {
-        Position = new Vector2D(x, y);
-        _avatar = avatar;
+        // Position = new Vector2D(x, y);
+        // _avatar = avatar;
         if(!map.PlaceOnMap(this)) Console.WriteLine("Could not add to map");
     }
 
-    public void Display()
-    {
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.Write(_avatar);
-    }
-
-    public void FixTileRep(Map map, int row, int column)
-    {
-        Console.SetCursorPosition(row, column);
-        //Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
-        map.GetTileRepresentation(row, column);
-        
-    }
+    // public void Display()
+    // {
+    //     Console.SetCursorPosition(Position.X, Position.Y);
+    //     Console.Write(_avatar);
+    // }
+    //
+    // public void FixTileRep(Map map, int row, int column)
+    // {
+    //     Console.SetCursorPosition(row, column);
+    //     //Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
+    //     map.GetTileRepresentation(row, column);
+    //     
+    // }
 
     //Move by diffX (horizontal) and by diffY (vertical) on map
     public void Move(int diffX, int diffY, Map map)
@@ -44,7 +44,7 @@ public abstract class Character
         }
         else if (targetTile.IsOccupied())
         {
-            if (targetTile.Occupant != null) targetTile.Occupant.Interact();
+            if (targetTile.IsOccupied()) targetTile.GetOccupant()!.Interact(map);
         }
     }
 
@@ -54,11 +54,4 @@ public abstract class Character
     }
 
     public abstract bool TakeTurn(Map map);
-
-    public Vector2D GetPosition()
-    {
-        return Position;
-    }
-
-    public abstract void Interact();
 }

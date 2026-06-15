@@ -1,32 +1,14 @@
 namespace IntroClasses;
 
-public class Item
+public class Item:GameObject
 {
-    protected Vector2D Position;
-    private string _avatar;
 
-    public Item(Map map, int x = 0, int y = 0, string avatar = "!")
+    public Item(Map map, int x = 0, int y = 0, string avatar = "!"):base(map,x,y,avatar)
     {
-        Position = new Vector2D(x, y);
-        _avatar = avatar;
+        if(!map.PlaceOnMap(this)) Console.WriteLine("Could not add to map");
     }
 
-    public void Display()
+    public override void Interact(Map map)
     {
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.Write(_avatar);
-    }
-
-    public void FixBehind(Map map)
-    {
-        Console.SetCursorPosition(Position.X, Position.Y);
-        //Console.Write(map.GetTileRepresentation(Position.X, Position.Y));
-    }
-
-    public Vector2D GetPosition(){return Position;}
-    
-    public void Interact(Map map)
-    {
-        FixBehind(map);
     }
 }

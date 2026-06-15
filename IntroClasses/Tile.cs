@@ -3,10 +3,10 @@ namespace IntroClasses;
 public class Tile
 {
     private readonly char _rep;
-    public Character? Occupant = null;
+    private Character? _occupant = null;
     private bool _occupied = false;
     private readonly bool _walkable = true;
-    public Item Item = null;
+    private Item? _item = null;
 
     public Tile(char rep)
     {
@@ -20,8 +20,8 @@ public class Tile
 
     public void Display()
     {
-        if (_occupied) Occupant.Display();
-        else if (Item != null) Item.Display();
+        if (_occupied) _occupant.Display();
+        else if (_item != null) _item.Display();
         else Console.Write(_rep);
     }
 
@@ -38,22 +38,45 @@ public class Tile
     public void PlaceOnTile(Character occupant)
     {
         _occupied = true;
-        this.Occupant = occupant;
+        this._occupant = occupant;
     }
 
     public void PlaceOnTile(Item item)
     {
-        this.Item = item;
+        this._item = item;
     }
 
     public void RemoveOccupant()
     {
         _occupied = false;
-        Occupant = null;
+        _occupant = null;
     }
 
     public bool IsOccupied()
     {
         return _occupied;
+    }
+
+    public Character? GetOccupant()
+    {
+        return _occupant;
+    }
+
+    public Item? TakeItem()
+    {
+        if (!HasItem()) throw new Exception("Tile has no item");
+        Item item = _item!;
+        _item = null;
+        return item;
+    }
+
+    public bool HasItem()
+    {
+        return _item != null;
+    }
+
+    public Item? GetItem()
+    {
+        return _item;
     }
 }
